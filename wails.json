@@ -1,0 +1,18 @@
+{
+  "$schema": "https://wails.io/schemas/config.v2.json",
+  "name": "GitProxy",
+  "outputfilename": "GitProxy",
+  "frontend:install": "npm install",
+  "frontend:build": "npm run build",
+  "frontend:dev:watcher": "npm run dev",
+  "frontend:dev:serverUrl": "auto",
+  "author": {
+    "name": "YangYezhuang"
+  },
+  "info": {
+    "companyName": "YangYezhuang",
+    "productName": "GitProxy",
+    "copyright": "© YangYezhuang. All rights reserved.",
+    "comments": "Quickly switch between Git proxies"
+  }
+}
