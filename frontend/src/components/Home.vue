@@ -57,18 +57,11 @@ const currentYear = computed(() => new Date().getFullYear());
 
 function switchMode(mode) {
   SwitchMode(mode).then((result) => {
-    if (result == null || result === ''){
-      ElMessage({
-        message: `Please setting ${mode} addr`,
-        type: "info",
-      });
-    }else {
       ElMessage({
         message: `Use ${mode} Mode: `+result,
         type: "success",
       });
-    }
-  });
+    })
 }
 
 const openSettings = async () => {

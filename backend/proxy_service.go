@@ -13,9 +13,6 @@ func SwitchProxy(mode string) string {
 	}
 
 	switch mode {
-	case "default":
-		unsetProxy("http")
-		unsetProxy("https")
 	case "http":
 		setProxy("http", "http://"+addr)
 		setProxy("https", "http://"+addr)
@@ -23,7 +20,8 @@ func SwitchProxy(mode string) string {
 		setProxy("http", "socks5://"+addr)
 		setProxy("https", "socks5://"+addr)
 	default:
-		fmt.Println("Invalid proxy mode")
+		unsetProxy("http")
+		unsetProxy("https")
 	}
 	return addr
 }

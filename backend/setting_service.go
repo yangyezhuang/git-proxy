@@ -24,54 +24,14 @@ func getConfFilePath() string {
 	homeDir := getUserHomeDir()
 	fmt.Printf("User Home Directory: %s\n", homeDir)
 
-	// 定义 INI 文件路径
-	filePath := filepath.Join(homeDir, "gitproxy.ini")
+	// 定义 ini文件路径
+	filePath := filepath.Join(homeDir, ".gitproxy", "config.ini")
 	fmt.Printf("Config FullPath: %s\n", filePath)
 
 	return filePath
 }
 
-// 写入 INI 文件
-func writeConfig(filePath string) error {
-	cfg := ini.Empty()
-	// 添加配置节（section）及键值对
-	section1 := cfg.Section("proxy")
-	section1.Key("http").SetValue("127.0.0.1:7890")
-	section1.Key("socks").SetValue("127.0.0.1:80")
-
-	section2 := cfg.Section("Section2")
-	section2.Key("keyA").SetValue("valueA")
-	section2.Key("keyB").SetValue("valueB")
-
-	// 写入到文件
-	filename := "git_proxy_config.ini"
-	if err := cfg.SaveTo(filename); err != nil {
-		panic(err)
-	}
-
-	// 输出确认信息
-	fmt.Printf("INI file '%s' created successfully.\n", filename)
-
-	// // 创建一些示例节和键
-	// if err := cfg.Section("User").Key("Name").SetValue("John Doe"); err != nil {
-	// 	return err
-	// }
-	// if err := cfg.Section("User").Key("Age").SetValue("30"); err != nil {
-	// 	return err
-	// }
-	// if err := cfg.Section("App").Key("Version").SetValue("1.0.0"); err != nil {
-	// 	return err
-	// }
-
-	// // 将配置写入文件
-	// if err := cfg.SaveTo(filePath); err != nil {
-	// 	return err
-	// }
-
-	return nil
-}
-
-// 读取 INI 文件
+// 读取 ini文件
 func readConfig(mode string) (string, error) {
 	filePath := getConfFilePath()
 	addr := ""
