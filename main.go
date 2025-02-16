@@ -3,8 +3,10 @@ package main
 import (
 	"embed"
 	"fmt"
+	"github.com/getlantern/systray"
 	"github.com/go-ini/ini"
 	"github.com/wailsapp/wails/v2/pkg/options/windows"
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 	"os"
 	"path/filepath"
 
@@ -13,12 +15,17 @@ import (
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 )
 
+//go:embed favicon.ico
+var appIcon []byte
+
 //go:embed all:frontend/dist
 var assets embed.FS
 
 func main() {
 	// Create an instance of the app structure
 	app := NewApp()
+	// 系统托盘
+	go systray.Run(func() { onReady(app) }, onExit)
 
 	// Create application with options
 	err := wails.Run(&options.App{
@@ -89,4 +96,44 @@ func createFile(filePath string) {
 	if err := cfg.SaveTo(filePath); err != nil {
 		panic(err) // 或者处理错误
 	}
+}
+
+func onReady(a *App) {
+	systray.SetIcon(appIcon)
+	systray.SetTitle("GitProxy")
+	systray.SetTooltip("GitProxy")
+
+	// 定义菜单项
+	mDefault := systray.AddMenuItem("Default", "Switch Default")
+	mProxy := systray.AddMenuItem("Proxy", "Switch Proxy")
+	mHttp := mProxy.AddSubMenuItem("Http", "Switch Http")
+	mSocks := mProxy.AddSubMenuItem("Socks", "Switch Socks")
+	systray.AddSeparator()
+	mShow := systray.AddMenuItem("Show", "Show the application")
+	mHide := systray.AddMenuItem("Hide", "Hide the application")
+	systray.AddSeparator()
+	mQuit := systray.AddMenuItem("Quit", "Quit the application")
+
+	go func() {
+		for {
+			select {
+			case <-mDefault.ClickedCh:
+				runtime.Show(a.ctx)
+			case <-mHttp.ClickedCh:
+				runtime.Show(a.ctx)
+			case <-mSocks.ClickedCh:
+				runtime.Show(a.ctx)
+			case <-mShow.ClickedCh:
+				runtime.Show(a.ctx)
+			case <-mHide.ClickedCh:
+				runtime.Hide(a.ctx)
+			case <-mQuit.ClickedCh:
+				runtime.Quit(a.ctx)
+			}
+		}
+	}()
+}
+
+func onExit() {
+	// 清理工作
 }
