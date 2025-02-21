@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"git-proxy/backend"
+	"git-proxy/service"
 )
 
 // App struct
@@ -22,21 +22,21 @@ func (a *App) startup(ctx context.Context) {
 }
 
 func (a *App) SwitchMode(mode string) string {
-	address := backend.SwitchProxy(mode)
+	address := service.SwitchProxy(mode)
 	return address
 }
 
 func (a *App) QueryConfig() map[string]string {
-	config, _ := backend.QueryConfig()
+	config, _ := service.QueryConfig()
 	return config
 }
 
 func (a *App) ResetSettings() string {
-	result := backend.ClearConfig()
+	result := service.ClearConfig()
 	return result
 }
 
 func (a *App) SaveSettings(http string, socks string) string {
-	result := backend.SaveConfig(http, socks)
+	result := service.SaveConfig(http, socks)
 	return result
 }

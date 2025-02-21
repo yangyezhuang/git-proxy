@@ -3,6 +3,7 @@ package main
 import (
 	"embed"
 	"fmt"
+	"git-proxy/service"
 	"github.com/getlantern/systray"
 	"github.com/go-ini/ini"
 	"github.com/wailsapp/wails/v2/pkg/options/windows"
@@ -30,8 +31,8 @@ func main() {
 	// Create application with options
 	err := wails.Run(&options.App{
 		Title:         "GitProxy",
-		Width:         600,
-		Height:        400,
+		Width:         250,
+		Height:        392,
 		DisableResize: true,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
@@ -104,7 +105,7 @@ func onReady(a *App) {
 	systray.SetTooltip("GitProxy")
 
 	// 定义菜单项
-	mDefault := systray.AddMenuItem("Default", "Switch Default")
+	mDefault := systray.AddMenuItem("No Proxy", "Switch Default")
 	mProxy := systray.AddMenuItem("Proxy", "Switch Proxy")
 	mHttp := mProxy.AddSubMenuItem("Http", "Switch Http")
 	mSocks := mProxy.AddSubMenuItem("Socks", "Switch Socks")
@@ -118,11 +119,11 @@ func onReady(a *App) {
 		for {
 			select {
 			case <-mDefault.ClickedCh:
-				runtime.Show(a.ctx)
+				service.SwitchProxy("default")
 			case <-mHttp.ClickedCh:
-				runtime.Show(a.ctx)
+				service.SwitchProxy("http")
 			case <-mSocks.ClickedCh:
-				runtime.Show(a.ctx)
+				service.SwitchProxy("socks")
 			case <-mShow.ClickedCh:
 				runtime.Show(a.ctx)
 			case <-mHide.ClickedCh:

@@ -5,8 +5,6 @@
 <h4 align="center"><strong><a href="/">English</a></strong> | 简体中文</h4>
 <div align="center">
 
-
-
 <strong>一个现代化轻量级的跨平台Git代理切换桌面客户端，支持Mac、Windows和Linux</strong>
 </div>
 
@@ -24,10 +22,9 @@
 
 ## 功能特性
 
-* 极度轻量，基于Webview2，无内嵌浏览器（感谢[Wails](https://github.com/wailsapp/wails)）
-* 界面精美易用，提供浅色/深色主题（感谢[Naive UI](https://github.com/tusen-ai/naive-ui)
-  和 [IconPark](https://iconpark.oceanengine.com)）
-* 多国语言支持：英文/中文（[需要更多语言支持？点我贡献语言](.github/CONTRIBUTING_zh.md)）
+* 极度轻量，基于Webview2，无内嵌浏览器
+* 界面精美易用，提供浅色/深色主题
+* 多国语言支持：英文/中文
 * 快速的连接管理：支持默认模式/HTTP代理/SOCKS5代理
 
 

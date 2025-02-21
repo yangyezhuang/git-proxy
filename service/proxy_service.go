@@ -1,7 +1,8 @@
-package backend
+package service
 
 import (
 	"fmt"
+	"log"
 	"os/exec"
 	"syscall"
 )
@@ -31,7 +32,7 @@ func unsetProxy(scheme string) {
 	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
 	err := cmd.Run()
 	if err != nil {
-		fmt.Printf("Failed to unset %s proxy: %v\n", scheme, err)
+		log.Printf("Failed to unset %s proxy: %v\n", scheme, err)
 	}
 }
 
@@ -40,6 +41,6 @@ func setProxy(scheme, proxy string) {
 	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
 	err := cmd.Run()
 	if err != nil {
-		fmt.Printf("Failed to set %s proxy to %s: %v\n", scheme, proxy, err)
+		log.Printf("Failed to set %s proxy to %s: %v\n", scheme, proxy, err)
 	}
 }

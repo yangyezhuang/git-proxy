@@ -24,11 +24,9 @@
 
 ## Feature
 
-* Super lightweight, built on Webview2, without embedded browsers (Thanks
-  to [Wails](https://github.com/wailsapp/wails)).
-* Provides visually and user-friendly UI, light and dark themes (Thanks to [Naive UI](https://github.com/tusen-ai/naive-ui)
-  and [IconPark](https://iconpark.oceanengine.com)).
-* Multi-language support ([Need more languages ? Click here to contribute](.github/CONTRIBUTING.md)).
+* Super lightweight, built on Webview2, without embedded browsers.
+* Provides visually and user-friendly UI, light and dark themes.
+* Multi-language support.
 * Better connection management: supports SSH Tunnel/SSL/Sentinel Mode/Cluster Mode/HTTP proxy/SOCKS5 proxy.
 
 

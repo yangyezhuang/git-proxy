@@ -1,7 +1,6 @@
-package backend
+package service
 
 import (
-	"fmt"
 	"log"
 	"os/user"
 	"path/filepath"
@@ -22,11 +21,11 @@ func getUserHomeDir() string {
 func getConfFilePath() string {
 	// 获取用户主目录
 	homeDir := getUserHomeDir()
-	fmt.Printf("User Home Directory: %s\n", homeDir)
+	log.Printf("User Home Directory: %s\n", homeDir)
 
 	// 定义 ini文件路径
 	filePath := filepath.Join(homeDir, ".gitproxy", "config.ini")
-	fmt.Printf("Config FullPath: %s\n", filePath)
+	log.Printf("Config File Path: %s\n", filePath)
 
 	return filePath
 }
@@ -42,9 +41,9 @@ func readConfig(mode string) (string, error) {
 	}
 
 	// 读取配置
-	fmt.Printf("proxy mode: %s\n", mode)
+	log.Printf("proxy mode: %s\n", mode)
 	addr = cfg.Section("proxy").Key(mode).String()
-	fmt.Printf("%s addr: %s\n", mode, addr)
+	log.Printf("%s addr: %s\n", mode, addr)
 
 	return addr, nil
 }
@@ -68,7 +67,7 @@ func QueryConfig() (map[string]string, error) {
 	confMap["socksAddr"] = socksAddr
 
 	for key, value := range confMap {
-		fmt.Printf("Key: %s, Addr: %s\n", key, value)
+		log.Printf("Key: %s, Addr: %s\n", key, value)
 	}
 
 	return confMap, nil
