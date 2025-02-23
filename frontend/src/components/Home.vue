@@ -1,11 +1,10 @@
 <template>
-    <el-card class="box-card" :body-style="{ padding: '0px' }" data-wails-drag>
+  <el-card class="box-card" :body-style="{ padding: '0px' }" data-wails-drag>
       <!-- Profile Section -->
       <div class="profile-section" style="--wails-draggable:drag">
         <img style="width: 32px" src="../assets/images/logo.png" alt="">
         <div class="user-info">
           <h3>Git Proxy</h3>
-          <p>welcome...</p>
         </div>
       </div>
 
@@ -14,6 +13,7 @@
         <div class="team-item" v-for="team in teams" :key="team.id" :class="{ 'is-active': selectedTeam === team.id }" @click="selectTeam(team.id)">
           <el-avatar :size="32" :class="team.avatarClass" >
             {{ team.initial }}
+<!--          <el-icon><Position /></el-icon>-->
           </el-avatar>
           <span class="team-name">{{ team.name }}</span>
           <el-icon v-if="selectedTeam === team.id" class="check-icon">
@@ -69,7 +69,7 @@
 
 <script setup>
 import { ref, reactive } from 'vue'
-import { Check, Setting, Warning, SwitchButton } from '@element-plus/icons-vue'
+import { Check, Setting, Position, Warning, SwitchButton } from '@element-plus/icons-vue'
 import {ElMessage} from 'element-plus'
 import {SwitchMode, QueryConfig, SaveSettings, ResetSettings} from "../../wailsjs/go/main/App";
 
@@ -151,6 +151,10 @@ const handleQuit = () => {
 </script>
 
 <style scoped>
+.el-card{
+  /* background: transparent; */
+}
+
 .profile-section {
   padding: 16px;
   display: flex;
@@ -164,7 +168,7 @@ const handleQuit = () => {
 
 .user-info h3 {
   margin: 0;
-  font-size: 14px;
+  font-size: 18px;
   color: var(--el-text-color-primary);
 }
 

@@ -32,20 +32,23 @@ func main() {
 	err := wails.Run(&options.App{
 		Title:         "GitProxy",
 		Width:         250,
-		Height:        402,
+		Height:        395,
 		Frameless:     true,
 		DisableResize: true,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
-		BackgroundColour: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
+		BackgroundColour: &options.RGBA{R: 0, G: 0, B: 0, A: 0},
 		OnStartup:        app.startup,
 		Bind: []interface{}{
 			app,
 		},
 		Windows: &windows.Options{
 			// 禁用缩放手势
-			DisablePinchZoom: true,
+			DisablePinchZoom:    true,
+			Theme:               windows.SystemDefault,
+			BackdropType:        windows.Acrylic,
+			WindowIsTranslucent: true,
 		},
 	})
 
