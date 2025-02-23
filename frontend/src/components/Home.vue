@@ -1,17 +1,15 @@
 <template>
-<!--  <div class="team-switcher">-->
-    <el-card class="box-card" :body-style="{ padding: '0px' }">
+    <el-card class="box-card" :body-style="{ padding: '0px' }" data-wails-drag>
       <!-- Profile Section -->
-      <div class="profile-section">
+      <div class="profile-section" style="--wails-draggable:drag">
         <img style="width: 32px" src="../assets/images/logo.png" alt="">
-<!--        <el-avatar :size="32" src="../assets/images/logo.png"></el-avatar>-->
         <div class="user-info">
           <h3>Git Proxy</h3>
           <p>welcome...</p>
         </div>
       </div>
 
-      <!-- Teams List -->
+      <!-- Proxy List -->
       <div class="teams-list">
         <div class="team-item" v-for="team in teams" :key="team.id" :class="{ 'is-active': selectedTeam === team.id }" @click="selectTeam(team.id)">
           <el-avatar :size="32" :class="team.avatarClass" >
@@ -32,9 +30,14 @@
           <span>Settings</span>
         </div>
         <el-divider />
-        <div class="action-item" @click="handleSignOut">
+        <div class="action-item" @click="handleAbout">
           <el-icon><Warning /></el-icon>
           <span>About</span>
+        </div>
+        <el-divider />
+        <div class="action-item" @click="handleQuit">
+          <el-icon><SwitchButton /></el-icon>
+          <span>Quit</span>
         </div>
       </div>
 
@@ -62,12 +65,11 @@
         <img style="width: 160px;border-radius: 12px" src="../assets/images/pay.png" alt="">
       </el-drawer>
     </el-card>
-<!--  </div>-->
 </template>
 
 <script setup>
 import { ref, reactive } from 'vue'
-import { Check, Setting, Warning } from '@element-plus/icons-vue'
+import { Check, Setting, Warning, SwitchButton } from '@element-plus/icons-vue'
 import {ElMessage} from 'element-plus'
 import {SwitchMode, QueryConfig, SaveSettings, ResetSettings} from "../../wailsjs/go/main/App";
 
@@ -114,7 +116,7 @@ const selectTeam = (teamId) => {
 }
 
 const saveSettings = async () => {
-  var result = await SaveSettings(form.httpAddr, form.socks5Addr);
+  await SaveSettings(form.httpAddr, form.socks5Addr);
   ElMessage({
     message: "Saved Success",
     type: "success",
@@ -139,18 +141,16 @@ const handleSettings = async () => {
   form.socks5Addr = result.socksAddr
 };
 
-const handleSignOut = () => {
+const handleAbout = () => {
   aboutDrawer.value = true
-  // ElMessage.warning('Signing out...')
+}
+
+const handleQuit = () => {
+  window.runtime.Quit();
 }
 </script>
 
 <style scoped>
-.team-switcher {
-  max-width: 320px;
-  margin: 20px auto;
-}
-
 .profile-section {
   padding: 16px;
   display: flex;
