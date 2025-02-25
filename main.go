@@ -31,8 +31,8 @@ func main() {
 	// Create application with options
 	err := wails.Run(&options.App{
 		Title:         "GitProxy",
-		Width:         250,
-		Height:        395,
+		Width:         220,
+		Height:        355,
 		Frameless:     true,
 		DisableResize: true,
 		AssetServer: &assetserver.Options{

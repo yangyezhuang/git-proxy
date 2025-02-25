@@ -11,13 +11,10 @@
       <!-- Proxy List -->
       <div class="teams-list">
         <div class="team-item" v-for="team in teams" :key="team.id" :class="{ 'is-active': selectedTeam === team.id }" @click="selectTeam(team.id)">
-          <el-avatar :size="32" :class="team.avatarClass" >
-            {{ team.initial }}
-<!--          <el-icon><Position /></el-icon>-->
-          </el-avatar>
+          <el-icon><Position /></el-icon>
           <span class="team-name">{{ team.name }}</span>
           <el-icon v-if="selectedTeam === team.id" class="check-icon">
-            <Check />
+            <Select />
           </el-icon>
         </div>
       </div>
@@ -69,7 +66,7 @@
 
 <script setup>
 import { ref, reactive } from 'vue'
-import { Check, Setting, Position, Warning, SwitchButton } from '@element-plus/icons-vue'
+import { Select, Setting, Position, Warning, SwitchButton } from '@element-plus/icons-vue'
 import {ElMessage} from 'element-plus'
 import {SwitchMode, QueryConfig, SaveSettings, ResetSettings} from "../../wailsjs/go/main/App";
 
@@ -152,7 +149,7 @@ const handleQuit = () => {
 
 <style scoped>
 .el-card{
-  /* background: transparent; */
+   /* background: transparent; */
 }
 
 .profile-section {
@@ -188,6 +185,7 @@ const handleQuit = () => {
   padding: 12px 16px;
   cursor: pointer;
   transition: background-color 0.3s;
+  position: relative;
 }
 
 .team-item:hover {
@@ -199,13 +197,19 @@ const handleQuit = () => {
 }
 
 .team-name {
-  float: left;
+  margin-left: 8px;  /* 图标与文字间距 */
   flex: 1;
+  text-align: left;  /* 显式设置左对齐 */
+  overflow: hidden;  /* 防止文本溢出 */
+  white-space: nowrap; /* 单行显示 */
+  text-overflow: ellipsis; /* 过长显示省略号 */
   font-size: 14px;
   color: var(--el-text-color-primary);
 }
 
 .check-icon {
+  position: absolute;
+  right: 16px;
   color: var(--el-color-success);
 }
 
