@@ -11,7 +11,7 @@
       <!-- Proxy List -->
       <div class="teams-list">
         <div class="team-item" v-for="team in teams" :key="team.id" :class="{ 'is-active': selectedTeam === team.id }" @click="selectTeam(team.id)">
-          <el-icon><Position /></el-icon>
+          <el-icon><MagicStick /></el-icon>
           <span class="team-name">{{ team.name }}</span>
           <el-icon v-if="selectedTeam === team.id" class="check-icon">
             <Select />
@@ -32,7 +32,7 @@
           <span>About</span>
         </div>
         <el-divider />
-        <div class="action-item" @click="handleQuit">
+        <div class="quit-item" @click="handleQuit">
           <el-icon><SwitchButton /></el-icon>
           <span>Quit</span>
         </div>
@@ -66,7 +66,7 @@
 
 <script setup>
 import { ref, reactive } from 'vue'
-import { Select, Setting, Position, Warning, SwitchButton } from '@element-plus/icons-vue'
+import {Select, Setting, Warning, SwitchButton, MagicStick } from '@element-plus/icons-vue'
 import {ElMessage} from 'element-plus'
 import {SwitchMode, QueryConfig, SaveSettings, ResetSettings} from "../../wailsjs/go/main/App";
 
@@ -83,21 +83,15 @@ const form = reactive({
 const teams = [
   {
     id: 'default',
-    name: 'No Proxy',
-    initial: 'N',
-    avatarClass: 'equals-avatar'
+    name: 'No Proxy'
   },
   {
     id: 'http',
-    name: 'Http Proxy',
-    initial: 'H',
-    avatarClass: 'stripe-avatar'
+    name: 'Http Proxy'
   },
   {
     id: 'socks',
-    name: 'Socks Proxy',
-    initial: 'S',
-    avatarClass: 'intercom-avatar'
+    name: 'Socks Proxy'
   }
 ]
 
@@ -213,27 +207,6 @@ const handleQuit = () => {
   color: var(--el-color-success);
 }
 
-.create-avatar {
-  border: 2px dashed var(--el-border-color);
-  background-color: transparent;
-  color: var(--el-text-color-secondary);
-}
-
-.equals-avatar {
-  background-color: #ffaaa5;
-  color: #fff;
-}
-
-.stripe-avatar {
-  background-color: #635BFF;
-  color: #fff;
-}
-
-.intercom-avatar {
-  background-color: #60bf56;
-  color: #fff;
-}
-
 .footer-actions {
   margin-top: 8px;
 }
@@ -263,5 +236,29 @@ const handleQuit = () => {
 
 :deep(.el-divider--horizontal) {
   margin: 0;
+}
+
+.quit-item {
+  color: #f56c6c;
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.quit-item:hover {
+  background-color: var(--el-fill-color-light);
+}
+
+.quit-item .el-icon {
+  color: #f56c6c;
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.quit-item span {
+  font-size: 14px;
+  color: #f56c6c;
 }
 </style>
